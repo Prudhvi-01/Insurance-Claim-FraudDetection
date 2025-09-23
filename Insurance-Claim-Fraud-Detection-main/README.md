@@ -1,103 +1,91 @@
-Insurance Claims Fraud Detection Project
-1. Project Overview
+# **Insurance Claims Fraud Detection Project**
 
-Objective
-The objective of this project is to build a machine learning system to detect fraudulent insurance claims.
-We combine:
+---
 
-IsolationForest (inverted logic) for anomaly detection.
+## **1. Project Overview**
 
-XGBoost (softprob classifier) for supervised fraud classification.
+### **Objective**
+The objective of this project is to build a **machine learning system** to detect fraudulent insurance claims.  
+We combine:  
+- **IsolationForest (inverted logic)** → anomaly detection  
+- **XGBoost (softprob classifier)** → supervised fraud classification  
 
-This hybrid approach improves fraud detection accuracy compared to using a single model.
+This **hybrid approach** improves fraud detection accuracy compared to a single model.  
 
-Dataset
-We worked with an augmented insurance fraud dataset containing labeled fraud and non-fraud claims. The dataset includes:
+### **Dataset**
+We worked with an **augmented insurance fraud dataset** containing labeled fraud and non-fraud claims. The dataset includes:  
+- **Demographic details:** age, occupation, nominee relation  
+- **Policy details:** sum assured, premium, tenure  
+- **Claim attributes:** claim amount, reason, hospital, etc.  
 
-Demographic details (age, occupation, nominee relation)
+### **Programming Language**
+- **Python (3.8+)**
 
-Policy details (sum assured, premium, tenure)
+### **Tools & Libraries**
+- **Data Handling:** Pandas, NumPy  
+- **Modeling:** Scikit-learn, XGBoost, Imbalanced-learn  
+- **Visualization:** Matplotlib, Seaborn  
+- **UI:** Streamlit  
 
-Claim attributes (claim amount, reason, hospital, etc.)
+---
 
-Programming Language
+## **2. Data Acquisition**
+- Placed raw **CSV files** into the `data/` folder  
+- Loaded dataset into **Pandas** for cleaning, preprocessing, and feature engineering  
 
-Python (3.8+)
+---
 
-Tools & Libraries
+## **3. Data Exploration and Preprocessing**
 
-Data Handling: Pandas, NumPy
+### **3.1 Exploratory Data Analysis (EDA)**
+- Checked **shape** and **data types**  
+- Verified **missing values** and **duplicates**  
+- Visualized **fraud vs. non-fraud distribution** (highly imbalanced)  
+- Used **bar plots, histograms, box plots, and correlation heatmaps** to explore relationships  
 
-Modeling: Scikit-learn, XGBoost, Imbalanced-learn
+### **3.2 Data Cleaning**
+- Handled **missing values** with proper strategies  
+- Detected and treated **outliers** using IQR method  
+- Replaced **unknown categories** with `"unknown"` instead of dropping  
 
-Visualization: Matplotlib, Seaborn
+### **3.3 Feature Engineering**
+- Created **ratio-based features** (e.g., Premium-to-SumAssured)  
+- Extracted **date-based features** (month, quarter)  
+- Encoded **categorical variables** with **Label Encoding** and **One-Hot Encoding**  
+- Standardized **numerical columns** using **StandardScaler**  
 
-UI: Streamlit
+### **3.4 Feature Selection**
+- Removed **low predictive power columns**  
+- Selected **highly contributing features**  
 
-2. Data Acquisition
+---
 
-Placed raw CSVs into the data/ folder.
+## **4. Model Building**
 
-Loaded dataset into Pandas for cleaning, preprocessing, and feature engineering.
+### **4.1 Split Data**
+- **Train (80%) / Test (20%)**
 
-3. Data Exploration and Preprocessing
-3.1 Exploratory Data Analysis (EDA)
+### **4.2 Train Models**
+- **IsolationForest (inverted)** → trained on known fraud claims (fraud = inliers)  
+- **XGBoost (softprob)** → supervised classifier for fraud vs. non-fraud  
 
-Checked shape and data types.
+### **4.3 Evaluate Models**
+- Metrics: **Accuracy, Precision, Recall, F1-Score, ROC-AUC**  
+- **XGBoost** achieved strong classification results  
+- **Hybrid (IsolationForest + XGBoost)** improved detection rate  
 
-Verified missing values and duplicates.
+---
 
-Visualized fraud vs. non-fraud distribution (highly imbalanced).
+## **5. Model Tuning**
 
-Used bar plots, histograms, box plots, and correlation heatmaps to explore relationships between features.
+- Used **RandomizedSearchCV** and **GridSearchCV** for hyperparameter tuning  
+- Optimized **XGBoost parameters**: learning rate, max depth, estimators  
+- Tuned **IsolationForest parameters**: contamination, max samples  
 
-3.2 Data Cleaning
+---
 
-Handled missing values with appropriate strategies.
+## **6. Usage**
 
-Detected and treated outliers using IQR method.
-
-Replaced unknown categories with "unknown" class instead of dropping them.
-
-3.3 Feature Engineering
-
-Created ratio-based features (e.g., Premium-to-SumAssured).
-
-Extracted useful info from dates (month, quarter).
-
-Encoded categorical variables using Label Encoding and One-Hot Encoding.
-
-Standardized numerical columns with StandardScaler.
-
-3.4 Feature Selection
-
-Removed columns with low predictive power.
-
-Selected features that contributed most to model performance.
-
-4. Model Building
-4.1 Split Data
-
-Data divided into train (80%) and test (20%).
-
-4.2 Train Models
-
-IsolationForest (inverted) → trained on known fraud claims (fraud = inliers).
-
-XGBoost (softprob) → supervised classifier for fraud vs. non-fraud.
-
-4.3 Evaluate Models
-
-Metrics used: Accuracy, Precision, Recall, F1-Score, ROC-AUC.
-
-XGBoost achieved strong classification results.
-
-Hybrid approach (IsolationForest + XGBoost) improved overall detection rate.
-
-5. Model Tuning
-
-Used RandomizedSearchCV and GridSearchCV for hyperparameter tuning.
-
-Optimized XGBoost parameters: learning rate, max depth, number of estimators.
-
-Tuned IsolationForest contamination and max samples.
+### **Install Requirements**
+```bash
+pip install -r requirements.txt
