@@ -7,7 +7,7 @@
 ### **Objective**
 The objective of this project is to build a **machine learning system** to detect fraudulent insurance claims.  
 We combine:  
-- **IsolationForest (inverted logic)** → anomaly detection  
+- **RandomForest (inverted logic)** → anomaly detection  
 - **XGBoost (softprob classifier)** → supervised fraud classification  
 
 This **hybrid approach** improves fraud detection accuracy compared to a single model.  
